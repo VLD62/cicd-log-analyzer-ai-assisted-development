@@ -1,0 +1,71 @@
+{
+  "source_file": "sample_logs/jenkins_failed.log",
+  "total_lines": 13,
+  "findings": [
+    {
+      "rule_id": "PROXY_407",
+      "category": "Network / Proxy",
+      "severity": "high",
+      "line_number": 4,
+      "line": "ProxyError: 407 Proxy Authentication Required while connecting to Artifactory",
+      "recommendation": "Check HTTP_PROXY/HTTPS_PROXY and Docker daemon proxy configuration."
+    },
+    {
+      "rule_id": "DISK_SPACE",
+      "category": "Infrastructure",
+      "severity": "high",
+      "line_number": 11,
+      "line": "Filesystem /var/lib/docker Use% 100% used",
+      "recommendation": "Clean workspace/Docker cache or increase disk size on the build agent."
+    },
+    {
+      "rule_id": "DISK_SPACE",
+      "category": "Infrastructure",
+      "severity": "high",
+      "line_number": 12,
+      "line": "ERROR: No space left on device",
+      "recommendation": "Clean workspace/Docker cache or increase disk size on the build agent."
+    },
+    {
+      "rule_id": "DOCKER_DAEMON",
+      "category": "Docker",
+      "severity": "medium",
+      "line_number": 6,
+      "line": "ERROR: docker pull failed for registry.example.com/demo/build-image:3.5",
+      "recommendation": "Check Docker service status, registry access, and daemon proxy settings."
+    },
+    {
+      "rule_id": "TEST_FAILURE",
+      "category": "Tests",
+      "severity": "medium",
+      "line_number": 6,
+      "line": "ERROR: docker pull failed for registry.example.com/demo/build-image:3.5",
+      "recommendation": "Open the failing test output and reproduce locally before retrying the pipeline."
+    },
+    {
+      "rule_id": "DNS_RESOLUTION",
+      "category": "Network / DNS",
+      "severity": "medium",
+      "line_number": 7,
+      "line": "Temporary failure in name resolution for artifactory.internal.example",
+      "recommendation": "Verify DNS configuration, VPN/corporate network access, and Artifactory host name."
+    },
+    {
+      "rule_id": "TEST_FAILURE",
+      "category": "Tests",
+      "severity": "medium",
+      "line_number": 9,
+      "line": "FAILED tests/test_pipeline.py::test_artifact_upload",
+      "recommendation": "Open the failing test output and reproduce locally before retrying the pipeline."
+    }
+  ],
+  "status": "FAILED",
+  "highest_severity": "high",
+  "summary_by_category": {
+    "Docker": 1,
+    "Infrastructure": 2,
+    "Network / DNS": 1,
+    "Network / Proxy": 1,
+    "Tests": 2
+  }
+}

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CI/CD Log Analyzer Report</title>
+  <style>
+    @page { size: A4 landscape; margin: 12mm; }
+    body { font-family: Arial, sans-serif; margin: 18px; background: #f7f8fa; color: #222; }
+    .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px #0001; }
+    h1 { margin-top: 0; }
+    .status { font-size: 22px; font-weight: bold; }
+    .FAILED { color: #b00020; }
+    .WARNING { color: #9a6700; }
+    .PASSED { color: #137333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; table-layout: fixed; font-size: 12px; }
+    th, td { border-bottom: 1px solid #ddd; padding: 6px; text-align: left; vertical-align: top; word-break: break-word; overflow-wrap: anywhere; }
+    th { background: #eef1f5; }
+    code { white-space: pre-wrap; font-family: Consolas, monospace; font-size: 11px; }
+    .badge { border-radius: 999px; padding: 4px 8px; font-size: 12px; font-weight: bold; }
+    .high { background: #fce8e6; color: #b00020; }
+    .medium { background: #fff4ce; color: #7a4d00; }
+    .low { background: #e8f0fe; color: #174ea6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>CI/CD Log Analyzer Report</h1>
+    <p class="status FAILED">Status: FAILED</p>
+    <p><strong>Source:</strong> sample_logs/jenkins_failed.log</p>
+    <p><strong>Total lines:</strong> 13</p>
+    <p><strong>Highest severity:</strong> high</p>
+    <h2>Summary by category</h2>
+    <ul><li><strong>Docker</strong>: 1</li><li><strong>Infrastructure</strong>: 2</li><li><strong>Network / DNS</strong>: 1</li><li><strong>Network / Proxy</strong>: 1</li><li><strong>Tests</strong>: 1</li></ul>
+    <h2>Findings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style='width:9%'>Severity</th><th style='width:14%'>Category</th><th style='width:14%'>Rule</th><th style='width:6%'>Line</th><th style='width:32%'>Evidence</th><th style='width:25%'>Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>Network / Proxy</td>
+          <td>PROXY_407</td>
+          <td>4</td>
+          <td><code>ProxyError: 407 Proxy Authentication Required while connecting to Artifactory</code></td>
+          <td>Check HTTP_PROXY/HTTPS_PROXY and Docker daemon proxy configuration.</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>Infrastructure</td>
+          <td>DISK_SPACE</td>
+          <td>11</td>
+          <td><code>Filesystem /var/lib/docker Use% 100% used</code></td>
+          <td>Clean workspace/Docker cache or increase disk size on the build agent.</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>Infrastructure</td>
+          <td>DISK_SPACE</td>
+          <td>12</td>
+          <td><code>ERROR: No space left on device</code></td>
+          <td>Clean workspace/Docker cache or increase disk size on the build agent.</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>Docker</td>
+          <td>DOCKER_DAEMON</td>
+          <td>6</td>
+          <td><code>ERROR: docker pull failed for registry.example.com/demo/build-image:3.5</code></td>
+          <td>Check Docker service status, registry access, and daemon proxy settings.</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>Network / DNS</td>
+          <td>DNS_RESOLUTION</td>
+          <td>7</td>
+          <td><code>Temporary failure in name resolution for artifactory.internal.example</code></td>
+          <td>Verify DNS configuration, VPN/corporate network access, and Artifactory host name.</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>Tests</td>
+          <td>TEST_FAILURE</td>
+          <td>9</td>
+          <td><code>FAILED tests/test_pipeline.py::test_artifact_upload</code></td>
+          <td>Open the failing test output and reproduce locally before retrying the pipeline.</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+</html>

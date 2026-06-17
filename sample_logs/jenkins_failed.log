@@ -1,0 +1,13 @@
+Started by user demo-user
+Checking out repository
+Pulling Docker image registry.example.com/demo/build-image:3.5
+ProxyError: 407 Proxy Authentication Required while connecting to Artifactory
+Retrying download after 10 seconds
+ERROR: docker pull failed for registry.example.com/demo/build-image:3.5
+Temporary failure in name resolution for artifactory.internal.example
+Running unit tests
+FAILED tests/test_pipeline.py::test_artifact_upload
+Build workspace cleanup
+Filesystem /var/lib/docker Use% 100% used
+ERROR: No space left on device
+Finished: FAILURE

@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset='utf-8'>
+<style>
+@page { size: A4 landscape; margin: 12mm; }
+body { margin:0; background:#1e1e1e; }
+.terminal { font-family: 'DejaVu Sans Mono', Consolas, monospace; color:#d4d4d4; background:#1e1e1e; padding:18px; font-size:10.5px; line-height:1.28; white-space: pre-wrap; overflow-wrap: anywhere; }
+.prompt { color:#4ec9b0; }
+</style></head><body><pre class='terminal'><span class='prompt'>$ PYTHONPATH=src python -m cicd_log_analyzer.cli sample_logs/jenkins_failed.log --format text
+</span>CI/CD Log Analyzer Report
+===========================
+Source file: sample_logs/jenkins_failed.log
+Total lines: 13
+Status: FAILED
+Highest severity: high
+
+Summary by category:
+- Docker: 1
+- Infrastructure: 2
+- Network / DNS: 1
+- Network / Proxy: 1
+- Tests: 1
+
+Findings:
+- [HIGH] Network / Proxy / PROXY_407 at line 4
+  Evidence: ProxyError: 407 Proxy Authentication Required while connecting to Artifactory
+  Recommendation: Check HTTP_PROXY/HTTPS_PROXY and Docker daemon proxy configuration.
+- [HIGH] Infrastructure / DISK_SPACE at line 11
+  Evidence: Filesystem /var/lib/docker Use% 100% used
+  Recommendation: Clean workspace/Docker cache or increase disk size on the build agent.
+- [HIGH] Infrastructure / DISK_SPACE at line 12
+  Evidence: ERROR: No space left on device
+  Recommendation: Clean workspace/Docker cache or increase disk size on the build agent.
+- [MEDIUM] Docker / DOCKER_DAEMON at line 6
+  Evidence: ERROR: docker pull failed for registry.example.com/demo/build-image:3.5
+  Recommendation: Check Docker service status, registry access, and daemon proxy settings.
+- [MEDIUM] Network / DNS / DNS_RESOLUTION at line 7
+  Evidence: Temporary failure in name resolution for artifactory.internal.example
+  Recommendation: Verify DNS configuration, VPN/corporate network access, and Artifactory host name.
+- [MEDIUM] Tests / TEST_FAILURE at line 9
+  Evidence: FAILED tests/test_pipeline.py::test_artifact_upload
+  Recommendation: Open the failing test output and reproduce locally before retrying the pipeline.
+</pre></body></html>

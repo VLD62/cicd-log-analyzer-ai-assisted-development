@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cicd-log-analyzer"
+version = "1.0.0"
+description = "A small AI-assisted CI/CD log analysis CLI tool."
+requires-python = ">=3.10"
+authors = [{name = "Vladislav Iliev"}]
+
+[project.optional-dependencies]
+ai = [
+	"openai>=1.40.0",
+	"anthropic>=0.34.0",
+]
+
+[project.scripts]
+cicd-log-analyzer = "cicd_log_analyzer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
